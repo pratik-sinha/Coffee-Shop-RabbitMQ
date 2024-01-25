@@ -1,0 +1,80 @@
+environment:
+  Env: local
+
+http_global:
+  AppVersion: 1.0.0
+  PprofPort: :5555
+  Mode: Development
+  TokenSymmetricKey: 12345678901234567890123456789012
+  CookieName: jwt-token
+  ReadTimeout: 5
+  WriteTimeout: 5
+  SSL: true
+  CtxDefaultTimeout: 12
+  CSRF: true
+  Debug: false
+
+cookie:
+  Name: jwt-token
+  Domain: null
+  MaxAge: 86400
+  Secure: false
+  HttpOnly: true
+
+session:
+  Name: session-id
+  Prefix: api-session
+  Expire: 3600
+
+logger:
+  Development: true
+  DisableCaller: false
+  DisableStacktrace: false
+  Encoding: json
+  Level: info
+
+
+grpc_global:
+  Port: 0.0.0.0:8000
+  GatewayPort: 0.0.0.0:8001
+  ReadTimeout: 5
+  WriteTimeout: 5 
+  MaxConnectionIdle: 5
+  Timeout: 15
+  MaxConnectionAge: 5
+  Time: 120
+
+user_service:
+  ServiceName: user_service
+  HttpPort: 0.0.0.0:5000
+
+product_service:
+  ServiceName: product_service
+  GrpcPort: 0.0.0.0:8000
+  GrpcGatewayPort: 0.0.0.0:8001
+
+counter_service:
+  ServiceName: counter_service
+  HttpPort: 0.0.0.0:5001
+
+kitchen_service:
+  ServiceName: kitchen_service
+
+barista_service:
+  ServiceName: barista_service
+
+mongo:
+  Host: localhost
+  Port: 27017
+  User: user
+  Password: pass
+  Dbname: coffee-shop
+
+redis:
+  Host: localhost:6379
+
+rabbitmq:
+  Url: amqp://guest:guest@localhost:5672/
+
+otel:
+  Host: localhost:4317

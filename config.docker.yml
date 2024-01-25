@@ -1,0 +1,27 @@
+environment:
+  Env: local
+server:
+  AppVersion: 1.0.0
+  Port: :5000
+  PprofPort: :5555
+  Mode: Development
+  JwtSecretKey: secretkey
+  CookieName: jwt-token
+  ReadTimeout: 5
+  WriteTimeout: 5
+  SSL: true
+  CtxDefaultTimeout: 12
+  CSRF: true
+  Debug: false
+
+postgres:
+  PostgresqlHost: 143.198.196.148
+  PostgresqlPort: 5432
+  PostgresqlUser: cogito
+  PostgresqlPassword: s3cr3tp@ss
+  PostgresqlDbname: cogito_bank_ms
+  PostgresqlSslmode: false
+  PgDriver: pgx
+
+otel:
+  Host: otel_collector:4317

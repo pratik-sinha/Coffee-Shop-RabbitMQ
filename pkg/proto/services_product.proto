@@ -1,0 +1,24 @@
+syntax = "proto3";
+
+package pb;
+import "google/api/annotations.proto";
+import "google/protobuf/empty.proto";
+import "product.proto";
+
+
+option go_package = "coffee-shop/product/pb";
+
+service ProductService {
+    rpc GetProducts(google.protobuf.Empty) returns (GetProductsRes){
+        option(google.api.http) = {
+            get: "/product/getproducts"
+        };
+    }
+    rpc GetProductsByType(GetProductsByTypeReq) returns (GetProductsRes){
+        option(google.api.http) = {
+            post: "/product/getproductsbytype"
+            body: "*"
+        };
+    }
+}
+

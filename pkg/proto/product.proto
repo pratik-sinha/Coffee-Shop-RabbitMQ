@@ -1,0 +1,25 @@
+syntax = "proto3";
+
+package pb;
+
+
+option go_package = "coffee-shop/product/pb";
+
+
+message Product {
+    int32 type = 1;
+    string name = 2;
+    float price = 3;
+    int32 kitchen_type = 4;
+    string image = 5;
+}
+
+message GetProductsRes {
+    repeated Product products = 1;
+}
+
+message GetProductsReq {}
+
+message GetProductsByTypeReq {
+    repeated int32 product_types = 1;
+}
