@@ -12,6 +12,7 @@ function initApp() {
     cash: 0,
     change: 0,
     isProductPage: false,
+    isLoginPage:true,
     isAuthenticated: false,
     isOrderPage: false,
     isShowModalReceipt: false,
@@ -54,7 +55,36 @@ function initApp() {
         this.isProductPage = true
         this.loadProducts()
       } else {
-        alert('Invalid creds!')
+        alert(`Invalid creds! Error: ${data.error}`)
+      }
+
+    },
+    async handleRegisterSubmit(e) {
+      userCreds = {
+        "email":document.getElementById("register_email").value,
+        "user_name":document.getElementById("register_username").value,
+        "password":document.getElementById("register_password").value
+      }
+
+      if (userCreds.user_name.length == 0 || userCreds.password.length == 0 || userCreds.email.length == 0 ) {
+        alert('Invalid data!')
+        return
+      }
+      const response = await fetch(`http://localhost:5000/user/register`, {
+        method: 'POST',
+        credentials: "include", //--> send/receive cookies
+        headers: {
+          'Accept': 'application/json',
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(userCreds)
+      })
+      const data = await response.json();
+      if (data.success == true) {
+        this.isLoginPage = true;
+        alert('Please sign in with your credentials')
+      } else {
+        alert(`Invalid data! Error: ${data.error}`)
       }
 
     },
@@ -66,6 +96,7 @@ function initApp() {
       const data = await response.json();
       if (data.success == true) {
         this.isAuthenticated = false
+        this.isLoginPage = true
       }
     },
     async loadProducts() {
@@ -192,6 +223,9 @@ function initApp() {
       this.isProductPage = true;
       this.isOrderPage = false;
 
+    },
+    toggleRegisterLogin() {
+      this.isLoginPage = !this.isLoginPage;
     },
     changeToOrderPage() {
       this.loadOrders();

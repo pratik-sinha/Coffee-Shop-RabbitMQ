@@ -110,23 +110,23 @@
       - mongodb
       - redis 
 
-  # user_service:
-  #   container_name: user_service
-  #   build: 
-  #     context: ./
-  #     dockerfile: ./internal/user/docker/Dockerfile
-  #   ports:
-  #     - "5000:5000"
-  #   environment:
-  #     - config=docker
-  #   # volumes:
-  #   #   - ./:/app
-  #   networks:
-  #     - web_api
-  #   depends_on:
-  #     - otel_collector
-  #     - mongodb
-  #     - redis
+  user_service:
+    container_name: user_service
+    build: 
+      context: ./
+      dockerfile: ./internal/user/docker/Dockerfile
+    ports:
+      - "5000:5000"
+    environment:
+      - config=docker
+    # volumes:
+    #   - ./:/app
+    networks:
+      - web_api
+    depends_on:
+      - otel_collector
+      - mongodb
+      - redis
 
   counter_service:
     container_name: counter_service
