@@ -1,4 +1,15 @@
  services:
+  nginx:
+    image: nginx:latest
+    volumes:
+      - ./pkg/nginx/default.conf:/etc/nginx/conf.d/default.conf
+    ports:
+      - "9000:80"
+    depends_on:
+      - web
+    networks:
+      - web_api
+
 
   mongodb:
     container_name: mongo

@@ -1,5 +1,4 @@
 services:
-
   mongodb:
     container_name: mongo
     image: mongo:6.0.13

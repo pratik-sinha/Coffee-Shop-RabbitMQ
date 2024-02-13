@@ -1,9 +1,10 @@
 function initApp() {
+
   const app = {
-   // url: 'http://localhost:5001',
+   // url: 'http://localhost:9000',
     time: null,
     activeMenu: 'pos',
-    moneys: [2000, 5000, 10000, 20000, 50000, 100000],
+    moneys: [2000, 9000, 10000, 20000, 90000, 100000],
     itemTypes: [],
     keyword: "",
     cart: [],
@@ -19,7 +20,7 @@ function initApp() {
     receiptNo: null,
     receiptDate: null,
     async loadApp() {
-      const response = await fetch(`http://localhost:5000/user/isCookieValid`, {
+      const response = await fetch(`http://localhost:9000/user/isCookieValid`, {
         method: 'POST',
         credentials:'include'
       })
@@ -40,7 +41,7 @@ function initApp() {
         alert('Invalid creds!')
         return
       }
-      const response = await fetch(`http://localhost:5000/user/login`, {
+      const response = await fetch(`http://localhost:9000/user/login`, {
         method: 'POST',
         credentials: "include", //--> send/receive cookies
         headers: {
@@ -70,7 +71,7 @@ function initApp() {
         alert('Invalid data!')
         return
       }
-      const response = await fetch(`http://localhost:5000/user/register`, {
+      const response = await fetch(`http://localhost:9000/user/register`, {
         method: 'POST',
         credentials: "include", //--> send/receive cookies
         headers: {
@@ -89,7 +90,7 @@ function initApp() {
 
     },
     async logout() {
-      const response = await fetch(`http://localhost:5000/user/logout`, {
+      const response = await fetch(`http://localhost:9000/user/logout`, {
         method: 'POST',
         credentials:'include'
       })
@@ -100,14 +101,14 @@ function initApp() {
       }
     },
     async loadProducts() {
-      const response = await fetch(`http://localhost:8001/product/getproducts`)
+      const response = await fetch(`http://localhost:9000/product/getproducts`)
       const data = await response.json();
       this.itemTypes = data.products;
       console.log("itemTypes loaded", this.itemTypes)
     },
     async loadOrders() {
       this.orders = [];
-      const response = await fetch(`http://localhost:5001/counter/getOrders`, {
+      const response = await fetch(`http://localhost:9000/counter/getOrders`, {
         method: 'POST',
         credentials:'include'
       })
@@ -117,7 +118,7 @@ function initApp() {
       this.orders = res.data.orders;
     },
     async createOrder(order) {
-      const response = await fetch(`http://localhost:5001/counter/placeorder`, {
+      const response = await fetch(`http://localhost:9000/counter/placeorder`, {
         method: 'POST',
         credentials:'include',
         headers: {
