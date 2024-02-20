@@ -46,16 +46,16 @@ grpc_global:
 
 user_service:
   ServiceName: user_service
-  HttpPort: user_service:5000
+  HttpPort: 0.0.0.0:5000
 
 product_service:
   ServiceName: product_service
   GrpcPort: product_service:8000
-  GrpcGatewayPort: product_service:8001
+  GrpcGatewayPort: 0.0.0.0:8001
 
 counter_service:
   ServiceName: counter_service
-  HttpPort: counter_service:5001
+  HttpPort: 0.0.0.0:5001
 
 kitchen_service:
   ServiceName: kitchen_service

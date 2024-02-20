@@ -5,7 +5,7 @@ mock:
 
 develop:
 	echo "Starting docker environment"
-	docker compose  -f docker-compose.yaml up --build 
+	docker compose  -f docker-compose.yaml up 
 
 docker_delve:
 	echo "Starting docker debug environment"

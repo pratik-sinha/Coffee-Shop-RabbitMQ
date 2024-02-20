@@ -6,6 +6,8 @@ import (
 	session_service "coffee-shop/internal/shared/session/service"
 	user_repository "coffee-shop/internal/user/repository"
 	user_service "coffee-shop/internal/user/service"
+	"fmt"
+	"strings"
 
 	"coffee-shop/pkg/logger"
 	"coffee-shop/pkg/metrics"
@@ -88,6 +90,7 @@ func (s *Server) Run() error {
 }
 
 func (s *Server) RunHttpServer(m metrics.Metrics, userController user_http.UserController, quit chan os.Signal) {
+	fmt.Print(strings.Split(":", s.cfg.User_service.HttpPort))
 	server := &http.Server{
 		Addr:           s.cfg.User_service.HttpPort,
 		Handler:        s.gin,

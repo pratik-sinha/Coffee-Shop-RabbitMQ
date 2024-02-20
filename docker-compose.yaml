@@ -6,7 +6,10 @@
     ports:
       - "9000:80"
     depends_on:
-      - web
+       - web
+       - user_service
+       - product_service
+       - counter_service
     networks:
       - web_api
 
@@ -122,16 +125,16 @@
       - redis 
 
   user_service:
-    container_name: user_service
+    # container_name: user_service
     build: 
       context: ./
       dockerfile: ./internal/user/docker/Dockerfile
     ports:
-      - "5000:5000"
+      - "5000"
     environment:
       - config=docker
-    # volumes:
-    #   - ./:/app
+    deploy:
+      replicas: 3
     networks:
       - web_api
     depends_on:
@@ -199,11 +202,10 @@
       context: ./
       dockerfile: ./internal/web/docker/Dockerfile
     image: coffeeshop-web
-    environment:
-      REVERSE_PROXY_URL: http://localhost:5000
-      WEB_PORT: 8888
+    deploy:
+      replicas: 3
     ports:
-      - 8999:8999
+      - "8999"
     depends_on:
       - user_service
       - counter_service
@@ -214,6 +216,5 @@
 
  networks:
    web_api:
-     driver: bridge
     
   

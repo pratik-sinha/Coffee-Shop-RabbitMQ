@@ -58,7 +58,7 @@ func NewServer(cfg *config.Config, mongoConn *mongo.Database, mongoClient *mongo
 }
 
 func (s *Server) Run() error {
-	m, err := metrics.CreateMetrics(s.cfg.User_service.ServiceName)
+	m, err := metrics.CreateMetrics(s.cfg.Counter_service.ServiceName)
 	if err != nil {
 		return err
 	}
