@@ -1,0 +1,111 @@
+version: '3.7'
+
+services:
+  configsvr1:
+    image: mongo:6.0.13
+    container_name: configsvr1
+    command: "mongod --configsvr --replSet configrs --bind_ip_all --port 27019"
+    ports:
+      - "27019:27019"
+    networks:
+      - mongo-shard
+    volumes:
+      - configsvr1-data:/data/db
+      - ./init_configsvr.js:/scripts/init.js
+
+  configsvr2:
+    image: mongo:6.0.13
+    container_name: configsvr2
+    command:  "mongod --configsvr --replSet configrs --bind_ip_all --port 27020" 
+    ports:
+      - "27020:27020"
+    networks:
+      - mongo-shard
+    volumes:
+      - configsvr2-data:/data/db
+
+  configsvr3:
+    image: mongo:6.0.13
+    container_name: configsvr3
+    command:  "mongod --configsvr --replSet configrs --bind_ip_all --port 27021" 
+    ports:
+      - "27021:27021"
+    networks:
+      - mongo-shard
+    volumes:
+      - configsvr3-data:/data/db
+
+  shard1svr1:
+    image: mongo:6.0.13
+    container_name: shard1svr1
+    command:  "mongod --shardsvr --replSet shard1rs --bind_ip_all --port 27022" 
+    ports:
+      - "27022:27022"
+    networks:
+      - mongo-shard
+    volumes:
+      - shard1svr1-data:/data/db
+      - ./init_shard1.js:/scripts/init.js
+
+  shard1svr2:
+    image: mongo:6.0.13
+    container_name: shard1svr2
+    command:  "mongod --shardsvr --replSet shard1rs --bind_ip_all --port 27023" 
+    ports:
+      - "27023:27023"
+    networks:
+      - mongo-shard
+    volumes:
+      - shard1svr2-data:/data/db
+
+  shard2svr1:
+    image: mongo:6.0.13
+    container_name: shard2svr1
+    command:  "mongod --shardsvr --replSet shard2rs --bind_ip_all --port 27025" 
+    ports:
+      - "27025:27025"
+    networks:
+      - mongo-shard
+    volumes:
+      - shard2svr1-data:/data/db
+      - ./init_shard2.js:/scripts/init.js
+
+  shard2svr2:
+    image: mongo:6.0.13
+    container_name: shard2svr2
+    command:  "mongod --shardsvr --replSet shard2rs --bind_ip_all --port 27026" 
+    ports:
+      - "27026:27026"
+    networks:
+      - mongo-shard
+    volumes:
+      - shard2svr2-data:/data/db
+
+  mongos:
+    image: mongo:6.0.13
+    container_name: mongos
+    ports:
+      - "27017:27017"
+      - "27024:27024"
+    networks:
+      - mongo-shard
+    depends_on:
+      - configsvr1
+      - configsvr2
+      - configsvr3
+      - shard1svr1
+      - shard1svr2
+      - shard2svr1
+      - shard2svr2
+
+volumes:
+  configsvr1-data:
+  configsvr2-data:
+  configsvr3-data:
+  shard1svr1-data:
+  shard1svr2-data:
+  shard2svr1-data:
+  shard2svr2-data:
+
+networks:
+  mongo-shard:

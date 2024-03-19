@@ -1,0 +1,17 @@
+
+1.Run on cfgsvr1
+mongosh --host configsvr1:27019 /scripts/init.js
+
+
+2.Run on shard1svr1
+mongosh --host shard1svr1:27022 /scripts/init.js
+
+3.Run on shard2svr1
+mongosh --host shard2svr1:27025 /scripts/init.js
+
+
+4. mongos --configdb configrs/configsvr1:27019,configsvr2:27020,configsvr3:27021 --bind_ip 0.0.0.0 --port 27024
+
+5. Run on mongos
+sh.addShard("shard1rs/shard1svr1:27022,shard1svr2:27023")
+sh.addShard("shard2rs/shard2svr1:27025,shard2svr2:27026")
