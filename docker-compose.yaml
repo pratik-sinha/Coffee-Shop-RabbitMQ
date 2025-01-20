@@ -202,7 +202,7 @@
     build:
       context: ./
       dockerfile: ./internal/web/docker/Dockerfile
-    image: coffeeshop-web
+#    image: coffeeshop-web
     deploy:
       replicas: 3
     ports:
