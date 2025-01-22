@@ -7,8 +7,6 @@ import (
 	"coffee-shop/pkg/db/mongo"
 	"coffee-shop/pkg/db/redis"
 	"coffee-shop/pkg/logger"
-	"coffee-shop/pkg/metrics"
-	"coffee-shop/pkg/tracing"
 	"coffee-shop/pkg/utils"
 	"log"
 	"os"
@@ -46,17 +44,17 @@ func main() {
 	redisClient, disconnectRedis := redis.NewRedisClient(cfg)
 	defer disconnectRedis()
 
-	shutdownTracing, err := tracing.InitTracerProvider(cfg, cfg.User_service.ServiceName)
-	if err != nil {
-		appLogger.Fatalf("Tracing init: %s", err)
-	}
-	defer shutdownTracing()
+	// shutdownTracing, err := tracing.InitTracerProvider(cfg, cfg.User_service.ServiceName)
+	// if err != nil {
+	// 	appLogger.Fatalf("Tracing init: %s", err)
+	// }
+	// defer shutdownTracing()
 
-	shutdownMetrics, err := metrics.InitMetricsProvider(cfg, cfg.User_service.ServiceName)
-	if err != nil {
-		appLogger.Fatalf("Metrics init: %s", err)
-	}
-	defer shutdownMetrics()
+	// shutdownMetrics, err := metrics.InitMetricsProvider(cfg, cfg.User_service.ServiceName)
+	// if err != nil {
+	// 	appLogger.Fatalf("Metrics init: %s", err)
+	// }
+	// defer shutdownMetrics()
 
 	s := server.NewServer(cfg, mongoDb, mongoClient, redisClient, appLogger)
 
